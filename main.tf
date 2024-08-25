@@ -5,7 +5,14 @@ terraform {
       version = "~> 5.64.0"
     }
   }
+
+  backend "s3" {
+    bucket         = "my-super-terraform-state"
+    key            = "terraform.tfstate"
+    region         = "eu-central-1"
+  }
 }
+
 
 provider "aws" {
   region = var.region
@@ -14,6 +21,7 @@ provider "aws" {
 
 resource "aws_instance" "example" {
   ami           = "ami-0af698e8b97debc7d"
+  instance_type = "t2.micro"
   tags = {
     Name = "ExampleInstance"
   }
