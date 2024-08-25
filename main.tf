@@ -1,0 +1,28 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.64.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.region
+}
+
+
+resource "aws_instance" "example" {
+  ami           = "ami-0af698e8b97debc7d"
+  tags = {
+    Name = "ExampleInstance"
+  }
+}
+
+resource "aws_s3_bucket" "my_bucket" {
+  bucket  = "my-super-bucket-1"
+  tags    = {
+	Name          = "MyS3Bucket"
+	Environment    = "Production"
+  }
+}
